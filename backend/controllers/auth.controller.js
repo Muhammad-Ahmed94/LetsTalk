@@ -11,6 +11,7 @@ const generateTokens = (userId) => {
     expiresIn: "10m",
   });
 
+  console.log("tokens generated");
   return { accessToken, refreshToken };
 };
 
@@ -45,7 +46,10 @@ export const signup = async (req, res) => {
     const { accessToken, refreshToken } = generateTokens(user._id);
 
     await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
+    console.log("Before setting cookie");
     setCookies(res, accessToken, refreshToken);
+    console.log("After setting cookie");
+
 
     // Sending new user in response back
     res.status(201).json({
