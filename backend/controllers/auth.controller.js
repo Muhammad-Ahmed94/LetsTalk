@@ -1,11 +1,70 @@
+import { redis } from "../lib/redis.js";
+import userModel from "../models/user.model.js";
+import jwt from "jsonwebtoken";
+
+const generateTokens = (userId) => {
+  const accessToken = jwt.sign({ userId }, process.env.ACCESSTOKEN_SECRET, {
+    expiresIn: "5m",
+  });
+  const refreshToken = jwt.sign({ userId }, process.env.REFRESHTOKEN_SECRET, {
+    expiresIn: "10m",
+  });
+
+  return { accessToken, refreshToken };
+};
+
+const setCookies = (res, accessToken, refreshToken) => {
+    res.cookie("Aceess_Cookie", accessToken, {
+        httpOnly: true,
+        maxAge: 5 * 60 * 1000,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production"
+    });
+    res.cookie("Refresh_Cookie", refreshToken, {
+      httpOnly: true,
+      maxAge: 10 * 60 * 1000,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production"
+    });
+};
+
 export const signup = async (req, res) => {
-    const { email, password, confirmPassword } = req.body;
-}
+  const { name, email, password } = req.body;
+
+  try {
+    // Check if user is already registered in DB
+    const userExist = await userModel.findOne({ email });
+    if (userExist) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    const user = await userModel.create({ name, email, password });
+
+    const { accessToken, refreshToken } = generateTokens(user._id);
+
+    await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
+
+    setCookies(res, accessToken, refreshToken);
+
+    res.status(201).json({
+        user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email
+        },
+        message: "New user created successfully"
+    })
+
+  } catch (error) {
+    console.error("Signup error", error.message);
+    res.sendStatus(500);
+  }
+};
 
 export const login = async (req, res) => {
-    console.log("login route");
+  console.log("login route");
 };
 
 export const logout = async (req, res) => {
-    console.log("logout route");
-}
+  console.log("logout route");
+};
