@@ -11,13 +11,12 @@ const generateTokens = (userId) => {
     expiresIn: "10m",
   });
 
-  console.log("tokens generated");
   return { accessToken, refreshToken };
 };
 
 // Sets new http only, access and refresh cookie with respective tokens
 const setCookies = (res, accessToken, refreshToken) => {
-  res.cookie("Aceess_Cookie", accessToken, {
+  res.cookie("Access_Cookie", accessToken, {
     httpOnly: true,
     maxAge: 5 * 60 * 1000,
     sameSite: "strict",
@@ -32,24 +31,31 @@ const setCookies = (res, accessToken, refreshToken) => {
 };
 
 export const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, gender, profilePicture } = req.body;
 
   try {
     // Check if user is already registered in DB
-    const userExist = await userModel.findOne({ email });
-    if (userExist) {
-      return res.status(400).json({ message: "User already exists" });
-    }
+    if(await userModel.findOne({ email })) {return res.status(400).json({ message: "User with same email already exists" })};
+    if(await userModel.findOne({ name })) {return res.status(400).json({ message: "User with same name already exists" })};
+
+    // Dynamic PFP using gender as key
+    const assignedProfilePicture = `https://avatar.iran.liara.run/public/${gender}`;
 
     // Create new user in DB
-    const user = await userModel.create({ name, email, password });
+    const user = await userModel.create({
+      name,
+      email,
+      password,
+      gender,
+      profilePicture: profilePicture || assignedProfilePicture.toLowerCase()
+    });
+
+    // Get Tokens
     const { accessToken, refreshToken } = generateTokens(user._id);
 
+    // Saving refresh token in upstash redis
     await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
-    console.log("Before setting cookie");
     setCookies(res, accessToken, refreshToken);
-    console.log("After setting cookie");
-
 
     // Sending new user in response back
     res.status(201).json({
@@ -57,6 +63,8 @@ export const signup = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        gender: user.gender,
+        profilePicture: user.profilePicture
       },
       message: "New user created successfully",
     });

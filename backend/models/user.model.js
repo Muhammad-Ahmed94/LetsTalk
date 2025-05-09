@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Name required"],
-      unique: true
+      unique: true,
     },
     email: {
       type: String,
@@ -19,10 +19,14 @@ const userSchema = new mongoose.Schema(
       minLength: [6, "Password must be 6 characters long"],
       trim: true,
     },
+    gender: {
+      type: String,
+      enum: ["male", "female"],
+    },
     profilePicture: {
       type: String,
-      default: ""
-    }
+      default: "",
+    },
   },
   {
     timestamps: true,
