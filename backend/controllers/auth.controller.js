@@ -30,13 +30,14 @@ const setCookies = (res, accessToken, refreshToken) => {
   });
 };
 
+// Signup controller
 export const signup = async (req, res) => {
   const { name, email, password, gender, profilePicture } = req.body;
 
   try {
     // Check if user is already registered in DB
-    if(await userModel.findOne({ email })) {return res.status(400).json({ message: "User with same email already exists" })};
-    if(await userModel.findOne({ name })) {return res.status(400).json({ message: "User with same name already exists" })};
+    if(await userModel.findOne({ email })) { return res.status(400).json({ message: "User with same email already exists" }) };
+    if(await userModel.findOne({ name })) { return res.status(400).json({ message: "User with same name already exists" }) };
 
     // Dynamic PFP using gender as key
     const assignedProfilePicture = `https://avatar.iran.liara.run/public/${gender}`;
@@ -57,7 +58,7 @@ export const signup = async (req, res) => {
     await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
     setCookies(res, accessToken, refreshToken);
 
-    // Sending new user in response back
+    // Sending new user in response
     res.status(201).json({
       user: {
         _id: user._id,
@@ -68,16 +69,55 @@ export const signup = async (req, res) => {
       },
       message: "New user created successfully",
     });
+    console.log("User created successfully");
   } catch (error) {
-    console.error("Signup error", error.message);
+    console.error("Error in signup controller", error.message);
     res.sendStatus(500);
   }
 };
 
+// Login controller
 export const login = async (req, res) => {
-  console.log("login route");
+  try {
+    // Get email and password from req body
+    const { email, password } = req.body;
+
+    // If missing field, throw error
+    if (!email || !password) { return res.status(400).json({ message: "Input required to login" }) };
+
+    // Check if user exists in DB
+    // Match email and password for validation
+    // If not validate, throw error
+    // If validate, generate tokens upon login
+    const user = await userModel.findOne({ email });
+    if(!user || !(await user.comparePasswords(password))) { return res.status(403).json({ message: "Invalid credentials" }) };
+
+      const { accessToken, refreshToken } = generateTokens(user._id);
+      await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
+
+      // Set cookes with respective tokens on login
+      setCookies(res, accessToken, refreshToken);
+
+      // Send user data in response
+      res.status(200).json({
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          gender: user.gender,
+          profilePicture: user.profilePicture
+        },
+        message: "User logged in successfully"
+      });
+      console.log("User Logged in successfully");
+  } catch (error) {
+    console.error("Error in Log in controller", error.message);
+    res.status(500).json({ message: "Something went wrong please tyr again" });
+  }
+
 };
 
+// Logout controller
 export const logout = async (req, res) => {
   console.log("logout route");
 };
