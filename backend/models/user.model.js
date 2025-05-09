@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Name required"],
+      unique: true
     },
     email: {
       type: String,
@@ -18,6 +19,10 @@ const userSchema = new mongoose.Schema(
       minLength: [6, "Password must be 6 characters long"],
       trim: true,
     },
+    profilePicture: {
+      type: String,
+      default: ""
+    }
   },
   {
     timestamps: true,
@@ -36,7 +41,7 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-// Compare password before logging
+// Method "comparePasswords" before logging
 userSchema.methods.comparePasswords = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
