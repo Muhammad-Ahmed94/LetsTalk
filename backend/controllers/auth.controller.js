@@ -112,12 +112,28 @@ export const login = async (req, res) => {
       console.log("User Logged in successfully");
   } catch (error) {
     console.error("Error in Log in controller", error.message);
-    res.status(500).json({ message: "Something went wrong please tyr again" });
+    res.sendStatus(500);
   }
 
 };
 
 // Logout controller
 export const logout = async (req, res) => {
-  console.log("logout route");
+  try {
+    const refreshToken = req.cookies.Refresh_Cookie;
+
+    if(!refreshToken) { return res.status(400).json({ message: "No refresh token found" }) };
+
+      const decoded = jwt.verify(refreshToken, process.env.REFRESHTOKEN_SECRET);
+      await redis.del(`refresh_Token:${decoded.userId}`);
+
+      res.clearCookie("Access_Cookie");
+      res.clearCookie("Refresh_Cookie");
+
+      res.status(200).json({ message: "Logout successful. Check cookies clear" });
+      console.log("Logout successfully");
+  } catch (error) {
+    console.error("Error in logout controller", error.message);
+    res.sendStatus(500);
+  }
 };
