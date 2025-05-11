@@ -14,7 +14,7 @@ export const protectRoute = async (req, res, next) => {
       const decoded = jwt.verify(accessToken, process.env.ACCESSTOKEN_SECRET); // working
       if(!decoded) { return res.status(401).json({ message: "User data compromised" }) };
       
-      const user = await userModel.findById(decoded.userId);
+      const user = await userModel.findById(decoded.userId).select("-password");
       console.log("user", user.name);
 
       if (!user) { return res.status(401).json({ message: "This user is unathuorized or been tempered with"}) }
