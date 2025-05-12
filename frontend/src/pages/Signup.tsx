@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router";
+import useUserStore from "../stores/useUserStore";
+import Formfield from "../components/Formfield";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +11,15 @@ const SignupPage = () => {
     gender: "",
   });
 
+  const { signup } = useUserStore();
+
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
+    signup(
+      formData.name,
+      formData.email,
+      formData.password,
+    )
     console.log(formData);
   };
 
@@ -24,13 +33,10 @@ const SignupPage = () => {
 
         <form onSubmit={handleFormSubmit}>
           <div>
-            <label className="label p-2" aria-label="username">
-              Username
-            </label>
-            <input
+            <Formfield
+              title="Username"
               type="text"
-              placeholder="username"
-              className="border"
+              placeholder="name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -39,13 +45,10 @@ const SignupPage = () => {
           </div>
 
           <div>
-            <label className="label p-2" aria-label="password">
-              email
-            </label>
-            <input
+            <Formfield
+              title="Email"
               type="email"
-              placeholder="example@gmail.com"
-              className="border"
+              placeholder="exmaple@gmail.com"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -54,13 +57,10 @@ const SignupPage = () => {
           </div>
 
           <div>
-            <label className="label p-2" aria-label="password">
-              password
-            </label>
-            <input
+            <Formfield
+              title="Password"
               type="password"
-              placeholder="password"
-              className="border"
+              placeholder="*******"
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
