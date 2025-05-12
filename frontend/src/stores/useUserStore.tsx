@@ -8,8 +8,8 @@ interface useUserStoreInterface {
   // checkingAuth: boolean
 
   signup: (name: string, email: string, password: string) => void;
-  // login: (email: string, password: string) => void;
-  // logout: () => void;
+  login: (email: string, password: string) => void;
+  logout: () => void;
 }
 const useUserStore = create<useUserStoreInterface>((set, get) => ({
   user: null,
@@ -32,6 +32,29 @@ const useUserStore = create<useUserStoreInterface>((set, get) => ({
       console.error("Error occured while signing up", error.message);
     }
   },
+
+  login: async (email, password) => {
+    set({ loading: true });
+
+    try {
+        const res = await axiosInst.post("/auth/login", { email, password });
+        set({ user: res.data, loading: false });
+        console.log(res.data.user);
+    } catch (error:any) {
+        console.error("Error occured while logging in", error.message);
+    }
+  },
+
+  logout: async () => {
+    set({ loading: true });
+
+    try {
+        await axiosInst.post("/auth/logout");
+        set({ user: null, loading: false });
+    } catch (error:any) {
+        console.error("Error logging out:", error.message);
+    }
+  }
 }));
 
 export default useUserStore;

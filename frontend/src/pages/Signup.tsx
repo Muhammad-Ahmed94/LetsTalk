@@ -1,6 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router";
+
 import useUserStore from "../stores/useUserStore";
+
 import Formfield from "../components/Formfield";
 
 const SignupPage = () => {
@@ -20,7 +22,6 @@ const SignupPage = () => {
       formData.email,
       formData.password,
     )
-    console.log(formData);
   };
 
   return (
@@ -36,7 +37,7 @@ const SignupPage = () => {
             <Formfield
               title="Username"
               type="text"
-              placeholder="name"
+              placeholder="your name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
