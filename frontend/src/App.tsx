@@ -1,11 +1,11 @@
+import Login from "./pages/Login";
+
 const App = () => {
   return (
-    <div>
-
-    <div className="text-4xl underline uppercase">hello frontend</div>
-    <button>hey there</button>
+    <div className="p-4 min-h-screen flex-center">
+        <Login />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @config "../tailwind.config.ts";
+@plugin "daisyui";
 
 /* === Base Layer: Normalize & Custom Root Setup === */
 @layer base {
@@ -61,16 +62,22 @@
 }
 
 @layer components {
+
   /* Center Flex Utility */
   .flex-center {
     @apply flex justify-center items-center;
   }
 
+  .flex-col-center {
+    @apply flex flex-col items-center justify-center;
+  }
+  
   .align-center {
     @apply justify-center items-center;
   }
-    /* Button Base Styles */
-    .btn {
+
+  /* Button Base Styles */
+  /* .btn {
       @apply inline-flex justify-center items-center rounded-md px-4 py-2 font-medium transition-colors duration-200;
     }
   
@@ -96,5 +103,5 @@
   
     .section {
       @apply py-12 px-4 sm:px-6 lg:px-8;
-    }
+    } */
 }
