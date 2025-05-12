@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 type Props = {};
 
-const Login = (props: Props) => {
+const LoginPage = (props: Props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -55,4 +55,4 @@ const Login = (props: Props) => {
   );
 };
 
-export default Login;
+export default LoginPage;
