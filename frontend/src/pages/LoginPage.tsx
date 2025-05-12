@@ -1,14 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router";
 
-type Props = {};
-
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
+    console.log(`email:${email}\npassword:${password}`);
   };
 
   return (
@@ -16,7 +15,7 @@ const LoginPage = (props: Props) => {
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
           Login
-          <span className="text-blue-500"> ChatApp</span>
+          <span className="text-blue-500">To LetsTalk</span>
         </h1>
 
         <form onSubmit={handleFormSubmit}>
@@ -24,7 +23,7 @@ const LoginPage = (props: Props) => {
             <label className="label p-2" aria-label="username">Username</label>
             <input
               type="email"
-              placeholder="username"
+              placeholder="your email id"
               className="border"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
