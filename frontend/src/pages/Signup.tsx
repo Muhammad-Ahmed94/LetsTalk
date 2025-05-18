@@ -69,6 +69,29 @@ const SignupPage = () => {
             />
           </div>
 
+          <div className="flex">
+            <div>
+              <Formfield
+                title="Male"
+                type="checkbox"
+                /* value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              } */
+              />
+            </div>
+            <div>
+              <Formfield
+                title="Female"
+                type="checkbox"
+                /* value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              } */
+              />
+            </div>
+          </div>
+          
           <div>
             <p>
               Already a user{" "}
