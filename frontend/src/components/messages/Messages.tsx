@@ -11,6 +11,22 @@ const Messages = (props: Props) => {
         <Message />
         <Message />
         <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
     </div>
   )
 }

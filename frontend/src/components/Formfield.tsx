@@ -11,7 +11,7 @@ const Formfield:React.FC<FormFieldProps> = ({ title, type, placeholder, value, a
         value={value}
         accept={accept}
         onChange={onChange}
-        className="border rounded px-2 py-1"
+        className={`${className}`}
         required
       />
     </div>
