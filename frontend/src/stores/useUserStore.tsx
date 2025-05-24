@@ -9,7 +9,7 @@ const useUserStore = create<useUserStoreInterface>((set, get) => ({
   loading: false,
   // checkingAuth: false,
 
-  signup: async (name, email, password) => {
+  signup: async (name, email, password, gender) => {
     set({ loading: true });
 
     try {
@@ -17,6 +17,7 @@ const useUserStore = create<useUserStoreInterface>((set, get) => ({
         name,
         email,
         password,
+        gender
       });
       set({ user: res.data.user, loading: false });
       console.log(res.data);

@@ -13,7 +13,7 @@ export interface useUserStoreInterface {
   loading: boolean;
   // checkingAuth: boolean
 
-  signup: (name: string, email: string, password: string) => void;
+  signup: (name: string, email: string, password: string, gender: string) => void;
   login: (email: string, password: string) => void;
   logout: () => void;
 }

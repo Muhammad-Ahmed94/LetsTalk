@@ -17,10 +17,17 @@ const SignupPage = () => {
 
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if(!formData.gender) {
+      alert("Please select a gender")
+      return
+    };
+
     signup(
       formData.name,
       formData.email,
       formData.password,
+      formData.gender
     )
   };
 
@@ -69,29 +76,33 @@ const SignupPage = () => {
             />
           </div>
 
-          <div className="flex">
-            <div>
-              <Formfield
-                title="Male"
-                type="checkbox"
-                /* value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              } */
+          <div className="flex gap-4 px-2 my-2">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="gender"
+                value="male"
+                checked={formData.gender === "male"}
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
               />
-            </div>
-            <div>
-              <Formfield
-                title="Female"
-                type="checkbox"
-                /* value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              } */
+              Male
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                checked={formData.gender === "female"}
+                onChange={(e) =>
+                  setFormData({ ...formData, gender: e.target.value })
+                }
               />
-            </div>
+              Female
+            </label>
           </div>
-          
+
           <div>
             <p>
               Already a user{" "}
