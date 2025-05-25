@@ -1,24 +1,45 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import useConversationStore from '../../stores/useConversationStore';
 
 type Props = {}
 
 const Conversation = (props: Props) => {
+  const { getSideBarUsers, loading, sideBarUsers } = useConversationStore();
+  
+  useEffect(() => {
+    getSideBarUsers();
+  }, []);
+    
   return (
-    <div>
-      <div className="flex gap-2 items-center hover:bg-sky-500 px-2 py-1 rounded">
-        <div className='avatar online'>
-          <div className='w-12 rounded-full'>
-            <img src="/avatar.png" alt="user avatar" />
-          </div>
-        </div>
+    <div className="p-2">
+      <h2 className="text-lg font-semibold mb-2">Users</h2>
+      {loading ? (
+        <p>Loading users...</p>
+      ) : (
+        sideBarUsers.map((user) => (
+          <div
+            key={user._id}
+            className="flex gap-2 items-center hover:bg-sky-500 px-2 py-1 rounded cursor-pointer"
+          >
+            <div className="avatar online">
+              <div className="w-12 rounded-full">
+                <img
+                  src={user.avatar || "/avatar.png"}
+                  alt={user.name}
+                  className="object-cover"
+                />
+              </div>
+            </div>
 
-        <div className='flex flex-col flex-1'>
-          <div className='flex gap-3 justify-between'>
-            <p>Muneeb Ahmed</p>
+            <div className="flex flex-col flex-1">
+              <div className="flex gap-3 justify-between">
+                <p>{user.name}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className='divider my-0 py-0 h-1'></div>
+        ))
+      )}
+      <div className="divider my-0 py-0 h-1"></div>
     </div>
   );
 }
