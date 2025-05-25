@@ -17,7 +17,7 @@ const useUserStore = create<useUserStoreInterface>((set, get) => ({
         name,
         email,
         password,
-        gender
+        gender,
       });
       set({ user: res.data.user, loading: false });
       console.log(res.data);
@@ -32,10 +32,11 @@ const useUserStore = create<useUserStoreInterface>((set, get) => ({
 
     try {
       const res = await axiosInst.post("/auth/login", { email, password });
-      set({ user: res.data, loading: false });
-      console.log(res.data.user);
+      set({ user: res.data.user, loading: false });
+      console.log("user is:", res.data.user.name);
     } catch (error: any) {
       console.error("Error occured while logging in", error.message);
+      throw new Error(error.response?.data?.message || "Login failed"); // <- important
     }
   },
 
