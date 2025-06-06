@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 import React from "react";
 
 import Messages from "./Messages";
@@ -8,7 +10,7 @@ import { TiMessages } from "react-icons/ti";
 type Props = {};
 
 const MessageContainer = (props: Props) => {
-  const noChatSelected = true;
+  const noChatSelected = false;
 
   return (
     <div className="md:min-w-[450px] overflow-auto">
