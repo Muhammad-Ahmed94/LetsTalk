@@ -39,7 +39,7 @@ const useConversationStore = create<useConversationStoreInterface>(
     },
 
     // Get messages
-    getMessages: async (receiverId: string) => {
+    getMessages: async (receiverId) => {
       try {
         const res = await axiosInst.get(`/message/${receiverId}`);
         set({ messages: res.data });
@@ -49,7 +49,21 @@ const useConversationStore = create<useConversationStoreInterface>(
       }
     },
 
+    sendMessage: async (receiverId, message) => {
+      try {
+        const res = await axiosInst.post(`/message/send/${receiverId}`, {message});
 
+        // Add new message to current messages
+        set(state => ({
+          messages: [...state.messages, res.data]
+        }));
+        return res.data;
+      } catch (error:any) {
+        console.error("Error sending message", error.message);
+        toast.error("Failed to send a message");
+        throw error;
+      }
+    }
   })
 );
 

@@ -32,7 +32,8 @@ export interface useConversationStoreInterface {
   sideBarUsers: User[];
 
   getSideBarUsers: () => void;
-  setSelectedConversation: (user: User) => void;
+  setSelectedConversation: (user: User | null) => void;
   setMessages: (messages: any[]) => void;
   getMessages: (receiverId: string) => void;
+  sendMessage: (receiverId: string, message: string) => Promise<void> //TODO or make message interface instead of voids
 }
