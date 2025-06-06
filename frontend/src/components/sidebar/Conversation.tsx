@@ -4,11 +4,21 @@ import useConversationStore from '../../stores/useConversationStore';
 type Props = {}
 
 const Conversation = (props: Props) => {
-  const { getSideBarUsers, loading, sideBarUsers } = useConversationStore();
+  const { 
+    getSideBarUsers, 
+    loading, 
+    sideBarUsers, 
+    selectedConversation, 
+    setSelectedConversation 
+  } = useConversationStore();
   
   useEffect(() => {
     getSideBarUsers();
   }, []);
+
+  const handleSelectConversation = (user: any) => {
+    setSelectedConversation(user);
+  };
     
   return (
     <div className="p-2">
@@ -19,7 +29,12 @@ const Conversation = (props: Props) => {
         sideBarUsers.map((user) => (
           <div
             key={user._id}
-            className="flex gap-2 items-center hover:bg-sky-500 px-2 py-1 rounded cursor-pointer"
+            onClick={() => handleSelectConversation(user)}
+            className={`flex gap-2 items-center hover:bg-sky-500 px-2 py-1 rounded cursor-pointer transition-colors ${
+              selectedConversation?._id === user._id 
+                ? 'bg-sky-600' 
+                : ''
+            }`}
           >
             <div className="avatar online">
               <div className="w-12 rounded-full">
@@ -33,7 +48,13 @@ const Conversation = (props: Props) => {
 
             <div className="flex flex-col flex-1">
               <div className="flex gap-3 justify-between">
-                <p>{user.name}</p>
+                <p className={`${
+                  selectedConversation?._id === user._id 
+                    ? 'text-white font-semibold' 
+                    : ''
+                }`}>
+                  {user.name}
+                </p>
               </div>
             </div>
           </div>

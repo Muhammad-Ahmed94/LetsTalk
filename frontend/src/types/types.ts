@@ -34,4 +34,5 @@ export interface useConversationStoreInterface {
   getSideBarUsers: () => void;
   setSelectedConversation: (user: User) => void;
   setMessages: (messages: any[]) => void;
+  getMessages: (receiverId: string) => void;
 }

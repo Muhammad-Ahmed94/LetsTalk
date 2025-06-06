@@ -19,7 +19,7 @@ export const sendMessage = async (req, res) => {
         // if there is no conversation between the 2 clients before
         // create new model for 2 users
         if(!conversation) {
-            await conversationModel.create({
+            conversation = await conversationModel.create({
                 participants: [senderId, receiverId],
             })
         };
@@ -55,6 +55,10 @@ export const getMessage = async (req, res) => {
             participants: { $all: [senderId, receiverId]}
         }).populate("messages");
 
+        if(!conversation) {
+            return res.status(200).json([]);
+        };
+        
         res.status(200).json(conversation.messages);
         console.log("Get message succcess");
     } catch (error) {
