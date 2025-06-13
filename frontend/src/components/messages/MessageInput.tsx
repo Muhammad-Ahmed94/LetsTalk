@@ -1,8 +1,6 @@
-import React from "react";
 import { BsSend } from "react-icons/bs";
-type Props = {};
 
-const MessageInput = (props: Props) => {
+const MessageInput = () => {
   return (
     <form className="my-3 px-2">
       <div className="w-full relative">
