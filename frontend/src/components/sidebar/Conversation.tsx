@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import useConversationStore from '../../stores/useConversationStore';
 
-type Props = {}
 
-const Conversation = (props: Props) => {
+const Conversation = () => {
   const { 
     getSideBarUsers, 
     loading, 
@@ -36,16 +35,18 @@ const Conversation = (props: Props) => {
                 : ''
             }`}
           >
+            {/* Sidebar user PFP */}
             <div className="avatar online">
               <div className="w-12 rounded-full">
                 <img
-                  src={user.avatar || "/avatar.png"}
+                  src={user.profilePicture || "/avatar.png"}
                   alt={user.name}
                   className="object-cover"
                 />
               </div>
             </div>
 
+            {/* Sidebar username */}
             <div className="flex flex-col flex-1">
               <div className="flex gap-3 justify-between">
                 <p className={`${
