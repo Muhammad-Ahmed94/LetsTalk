@@ -10,26 +10,24 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, login, loading } = useUserStore();
+  const { login, loading } = useUserStore();
   const navigate = useNavigate();
 
   const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (!user) {
-      console.log(user);
-      try {
-        console.log(user);
-        await login(email, password); // if unknow error comes trying using await here
-        navigate("/");
-        console.log(user);
-      } catch (error) {
-        console.error("Error logging in client. Please check credentials");
-        toast.error("Error logging in. Please enter valid credentials");
-      }
-    } else {
-      console.log(`${user} is already logged in.`);
-      toast.error("user already logged in");
+    if (!email || !password) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+
+    try {
+      await login(email, password);
+      toast.success("Login successful!");
+      navigate("/");
+    } catch (error: any) {
+      console.error("Error logging in client. Please check credentials");
+      toast.error(error.message || "Error logging in. Please enter valid credentials");
     }
   };
 
@@ -38,7 +36,7 @@ const LoginPage = () => {
       <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
         <h1 className="text-3xl font-semibold text-center text-gray-300">
           Login
-          <span className="text-blue-500">To LetsTalk</span>
+          <span className="text-blue-500"> To LetsTalk</span>
         </h1>
 
         <form onSubmit={handleFormSubmit}>
@@ -64,18 +62,18 @@ const LoginPage = () => {
 
           <div>
             <button
-              className="cursor-pointer bg-blue-400 text-white px-4 py-2"
+              className="cursor-pointer bg-blue-400 text-white px-4 py-2 disabled:opacity-50"
               disabled={loading}
             >
-              Login now
+              {loading ? "Logging in..." : "Login now"}
             </button>
           </div>
         </form>
 
         {/* Navigate to signup page */}
-        <div>
+        <div className="mt-4">
           <p>
-            Dont have an account{" "}
+            Don't have an account?{" "}
             <Link to="/signup" className="text-blue-800 underline">
               Sign up here
             </Link>

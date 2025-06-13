@@ -1,9 +1,10 @@
 import { useState, type FormEvent } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import useUserStore from "../stores/useUserStore";
 
 import Formfield from "../components/Formfield";
+import toast from "react-hot-toast";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const SignupPage = () => {
     gender: "",
   });
 
+  const navigate = useNavigate();
   const { signup } = useUserStore();
 
   const handleFormSubmit = (e: FormEvent) => {
@@ -29,6 +31,8 @@ const SignupPage = () => {
       formData.password,
       formData.gender
     )
+    toast.success("Account created successfully!");
+    navigate("/");
   };
 
   return (
@@ -56,7 +60,7 @@ const SignupPage = () => {
             <Formfield
               title="Email"
               type="email"
-              placeholder="exmaple@gmail.com"
+              placeholder="example@gmail.com"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
