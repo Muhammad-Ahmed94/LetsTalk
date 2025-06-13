@@ -63,15 +63,6 @@ const LoginPage = () => {
           </div>
 
           <div>
-            <p>
-              Dont have an account{" "}
-              <Link to="/signup" className="text-blue-800 underline">
-                Sign up here
-              </Link>
-            </p>
-          </div>
-
-          <div>
             <button
               className="cursor-pointer bg-blue-400 text-white px-4 py-2"
               disabled={loading}
@@ -80,6 +71,16 @@ const LoginPage = () => {
             </button>
           </div>
         </form>
+
+        {/* Navigate to signup page */}
+        <div>
+          <p>
+            Dont have an account{" "}
+            <Link to="/signup" className="text-blue-800 underline">
+              Sign up here
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
