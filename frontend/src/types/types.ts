@@ -13,8 +13,9 @@ export interface User {
   name: string;
   email: string;
   gender: string;
-  avatar?: string;
+  profilePicture?: string;
 }
+
 export interface useUserStoreInterface {
   user: User | null;
   loading: boolean;
@@ -25,15 +26,25 @@ export interface useUserStoreInterface {
   logout: () => void;
 }
 
+export interface Message {
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  message: string;
+  createdAt: string;
+  updatedAt: string;
+  __v?: number;
+}
+
 export interface useConversationStoreInterface {
   loading: boolean;
-  messages: any[];
+  messages: Message[];
   selectedConversation: User | null;
   sideBarUsers: User[];
 
   getSideBarUsers: () => void;
   setSelectedConversation: (user: User | null) => void;
-  setMessages: (messages: any[]) => void;
+  setMessages: (messages: Message[]) => void;
   getMessages: (receiverId: string) => void;
   sendMessage: (receiverId: string, message: string) => Promise<void> //TODO or make message interface instead of voids
 }

@@ -9,7 +9,7 @@ const Message = ({ message }: { message: any }) => {
   const isFromMe = message.senderId === user?._id;
 
   // Get profile picture
-  const profilePicture = isFromMe ? user?.avatar : selectedConversation?.avatar;
+  const profilePicture = isFromMe ? user?.profilePicture : selectedConversation?.profilePicture;
 
   const timeStamp = (current: string) => {
     const date = new Date(current);
