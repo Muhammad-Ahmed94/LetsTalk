@@ -5,10 +5,10 @@ import jwt from "jsonwebtoken";
 // Creates access and refresh tokens for user with unique userid
 const generateTokens = (userId) => {
   const accessToken = jwt.sign({ userId }, process.env.ACCESSTOKEN_SECRET, {
-    expiresIn: "5m",
+    expiresIn: "1h",
   });
   const refreshToken = jwt.sign({ userId }, process.env.REFRESHTOKEN_SECRET, {
-    expiresIn: "10m",
+    expiresIn: "7d",
   });
 
   return { accessToken, refreshToken };
@@ -18,13 +18,13 @@ const generateTokens = (userId) => {
 const setCookies = (res, accessToken, refreshToken) => {
   res.cookie("Access_Cookie", accessToken, {
     httpOnly: true,
-    maxAge: 5 * 60 * 1000,
+    maxAge: 60 * 60 * 1000,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
   });
   res.cookie("Refresh_Cookie", refreshToken, {
     httpOnly: true,
-    maxAge: 10 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     sameSite: "strict",
     secure: process.env.NODE_ENV === "production",
   });
@@ -48,14 +48,14 @@ export const signup = async (req, res) => {
       email,
       password,
       gender,
-      profilePicture: profilePicture || assignedProfilePicture.toLowerCase()
+      profilePicture: profilePicture || assignedProfilePicture
     });
 
     // Get Tokens
     const { accessToken, refreshToken } = generateTokens(user._id);
 
     // Saving refresh token in upstash redis
-    await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
+    await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 7 * 24 * 60 * 60);
     setCookies(res, accessToken, refreshToken);
 
     // Sending new user in response
@@ -93,7 +93,7 @@ export const login = async (req, res) => {
     if(!user || !(await user.comparePasswords(password))) { return res.status(403).json({ message: "Invalid credentials" }) };
 
       const { accessToken, refreshToken } = generateTokens(user._id);
-      await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 10 * 60);
+      await redis.set(`refresh_Token:${user._id}`, refreshToken, "EX", 7 * 24 * 60 * 60);
 
       // Set cookes with respective tokens on login
       setCookies(res, accessToken, refreshToken);

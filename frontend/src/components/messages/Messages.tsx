@@ -1,11 +1,8 @@
-import React from 'react'
-
 import Message from './Message'
 import useConversationStore from '../../stores/useConversationStore'
 
-type Props = {}
 
-const Messages = (props: Props) => {
+const Messages = () => {
   const { loading, messages } = useConversationStore();
 
   if(loading) {
