@@ -1,5 +1,6 @@
 import conversationModel from "../models/conversation.model.js";
 import messageModel from "../models/message.model.js";
+import { getReceiverSocketId, io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
     try {
@@ -36,8 +37,13 @@ export const sendMessage = async (req, res) => {
             await conversation.save();
         }
 
-        //TODO Socket.IO functionality will come here.
-
+        // SocketIO functionality for RTC
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        // Send message only to specific receiver
+        if(receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessages)
+        };
+        
         res.status(201).json(newMessages);
         console.log("Message sent:", newMessages.message);
     } catch (error) {
