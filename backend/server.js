@@ -10,10 +10,10 @@ import userRoute from "./routes/user.route.js";
 
 
 import connectDB from "./lib/db.js";
+import { app, server } from "./socket/socket.js";
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 8000;
 
 const __dirname = path.resolve();
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port:${PORT}`);
   connectDB();
 });
