@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 import axiosInst from "../lib/axios";
 import toast from "react-hot-toast";
 import { type useConversationStoreInterface } from "../types/types";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const useConversationStore = create<useConversationStoreInterface>(
-  (set, get) => ({
+const useConversationStore = create<useConversationStoreInterface>((set, get) => ({
     loading: false,
     selectedConversation: null,
     messages: [],
@@ -25,6 +22,13 @@ const useConversationStore = create<useConversationStoreInterface>(
 
     setMessages: (messages) => set({ messages }),
 
+    // Method to add single message for RT updates
+    addMessage: (message:any) => {
+      set((state) => ({
+        messages: [...state.messages, message]
+      }))
+    },
+    
     getSideBarUsers: async () => {
       set({ loading: true });
 
