@@ -1,3 +1,5 @@
+import type { Socket } from "socket.io-client";
+
 export type FormFieldProps = {
   title: string;
   type: string;
@@ -48,3 +50,9 @@ export interface useConversationStoreInterface {
   getMessages: (receiverId: string) => void;
   sendMessage: (receiverId: string, message: string) => Promise<void> //TODO or make message interface instead of voids
 }
+
+// socket interface
+export interface SocketContextType {
+    socket: Socket | null;
+    onlineUsers: string[];
+};
