@@ -1,9 +1,20 @@
 import Message from './Message'
 import useConversationStore from '../../stores/useConversationStore'
+import useListenMessages from '../../hooks/useListenMessages';
+import { useEffect, useRef } from 'react';
 
 
 const Messages = () => {
   const { loading, messages } = useConversationStore();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // use real-time messages hook
+  useListenMessages();
+
+  // move down when new memssages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({behavior: 'smooth'});
+  }, [messages]);
 
   if(loading) {
     return (<div className='flex-center px-4 flex-1 overflow-auto'>
@@ -24,6 +35,7 @@ const Messages = () => {
         {messages.map((message) => (
           <Message key={message._id} message={message} />
         ))}
+        <div ref={messagesEndRef} />
     </div>
   )
 }
