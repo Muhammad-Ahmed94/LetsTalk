@@ -18,10 +18,10 @@ const LogOutButton = (props: Props) => {
     <div className="mt-auto">
       <button
         disabled={loading}
-        className="cursor-pointer bg-blue-400 text-white px-4 py-2"
+        className="cursor-pointer bg-green_secondary rounded font-bold px-4 py-2"
         onClick={handleLogout}
       >
-        <BiLogOut className="w-6 h-6 text-white cursor-pointer" />
+        <BiLogOut className="w-6 h-6 text-green_primary font-bold cursor-pointer" />
         {}
       </button>
     </div>

@@ -37,13 +37,13 @@ const SignupPage = () => {
 
   return (
     <div className="flex-col-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
-        <h1 className="text-3xl font-semibold text-center text-gray-300">
-          Signup
-          <span className="text-blue-500"> To LetsTalk</span>
+      <div className="w-full p-6 rounded-lg shadow-md bg-black_full bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
+        <h1 className="text-3xl font-semibold text-center text-green_secondary bg-black_light p-2 mb-2 rounded">
+          Signup To
+          <span className="text-green_primary"> LetsTalk</span>
         </h1>
 
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 items-start">
           <div>
             <Formfield
               title="Username"
@@ -108,16 +108,16 @@ const SignupPage = () => {
           </div>
 
           <div>
-            <p>
+            <p className="text-green_secondary">
               Already a user{" "}
-              <Link to="/login" className="text-blue-800 underline">
+              <Link to="/login" className="text-green_primary underline">
                 Login here
               </Link>
             </p>
           </div>
 
           <div>
-            <button className="cursor-pointer bg-blue-400 text-white px-4 py-2">
+            <button className="cursor-pointer bg-green_secondary text-black_light px-4 py-2 rounded">
               Signup now
             </button>
           </div>

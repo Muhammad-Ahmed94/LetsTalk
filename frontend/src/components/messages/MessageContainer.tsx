@@ -18,9 +18,9 @@ const MessageContainer = (props: Props) => {
       ) : (
         <>
           {/* Header */}
-          <div className="bg-slate-500 px-4 py-2 mb-2">
+          <div className="bg-black_full px-4 py-2 mb-2 capitalize">
             <span className="label-text">To: </span>
-            <span className="text-gray-900 font-bold">
+            <span className="text-black_ligth">
               {selectedConversation.name}
             </span>
           </div>

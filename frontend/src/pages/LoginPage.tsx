@@ -33,13 +33,13 @@ const LoginPage = () => {
 
   return (
     <div className="flex-col-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
-        <h1 className="text-3xl font-semibold text-center text-gray-300">
-          Login
-          <span className="text-blue-500"> To LetsTalk</span>
+      <div className="w-full p-6 rounded-lg shadow-md bg-black_full bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
+        <h1 className="text-3xl font-semibold text-center bg-black_light text-green_secondary rounded p-2 mb-2">
+          Login To
+          <span className="text-green_primary"> { }LetsTalk</span>
         </h1>
 
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-2 items-start">
           <div>
             <Formfield
               title="Email"
@@ -62,7 +62,7 @@ const LoginPage = () => {
 
           <div>
             <button
-              className="cursor-pointer bg-blue-400 text-white px-4 py-2 disabled:opacity-50"
+              className="cursor-pointer bg-green_secondary text-black_light rounded px-4 py-2 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? "Logging in..." : "Login now"}
@@ -72,9 +72,9 @@ const LoginPage = () => {
 
         {/* Navigate to signup page */}
         <div className="mt-4">
-          <p>
+          <p className="text-green_secondary">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-blue-800 underline">
+            <Link to="/signup" className="text-green_primary underline">
               Sign up here
             </Link>
           </p>

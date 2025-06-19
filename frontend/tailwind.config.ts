@@ -4,9 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#4f46e5",
-        secondary: "#6366f1",
-        accent: "#22d3ee",
+        black_light: "#141414",
+        black_medium: "#6366f1",
+        black_full: "#090909",
+        black_background: "#141414",
+
+        message_backgorund: "#090909",
+        message_text: "#FFFFFF",
+
+        green_primary: "#036825",
+        green_secondary: "#99FFAF",
+        
         muted: "#9ca3af",
         background: "#f9fafb",
         foreground: "#111827",

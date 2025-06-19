@@ -24,7 +24,7 @@ const Message = ({ message }: { message: any }) => {
         </div>
       </div>
 
-      <div className={`chat-bubble text-white bg-blue-500`}>{message.message}</div>
+      <div className={`chat-bubble text-white font-semibold bg-green_primary `}>{message.message}</div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
         {timeStamp(message.createdAt)}
       </div>

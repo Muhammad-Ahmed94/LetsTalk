@@ -29,18 +29,18 @@ const Conversation = () => {
   };
 
   return (
-    <div className="p-2">
+    <div className="p-2 text-green_secondary">
       <h2 className="text-lg font-semibold mb-2">Users</h2>
       {loading ? (
-        <p>Loading users...</p>
+        <p >Loading users...</p>
       ) : (
         sideBarUsers.map((user) => (
           <div
             key={user._id}
             onClick={() => handleSelectConversation(user)}
-            className={`flex gap-2 items-center hover:bg-sky-500 px-2 py-1 rounded cursor-pointer transition-colors ${
+            className={`flex gap-2 items-center hover:bg-black_light px-2 py-1 rounded cursor-pointer transition-colors ${
               selectedConversation?._id === user._id 
-                ? 'bg-sky-600' 
+                ? 'bg-black_light' 
                 : ''
             }`}
           >
@@ -58,9 +58,9 @@ const Conversation = () => {
             {/* Sidebar username */}
             <div className="flex flex-col flex-1">
               <div className="flex gap-3 justify-between">
-                <p className={`${
+                <p className={`capitalize ${
                   selectedConversation?._id === user._id 
-                    ? 'text-white font-semibold' 
+                    ? 'text-green_secondary font-semibold' 
                     : ''
                 }`}>
                   {user.name}
