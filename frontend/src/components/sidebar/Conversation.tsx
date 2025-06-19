@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import useConversationStore from '../../stores/useConversationStore';
-
+import { useSocketContext } from '../../context/SocketContext';
 
 const Conversation = () => {
   const { 
@@ -11,14 +11,23 @@ const Conversation = () => {
     setSelectedConversation 
   } = useConversationStore();
   
+  // Get online users from socket context
+  const { onlineUsers } = useSocketContext();
+
+  // Get sidebar users on initial render
   useEffect(() => {
     getSideBarUsers();
   }, []);
 
+  // Conversation select handler
   const handleSelectConversation = (user: any) => {
     setSelectedConversation(user);
   };
     
+  const isUserOnline = (userId: string) => {
+    return onlineUsers.includes(userId);
+  };
+
   return (
     <div className="p-2">
       <h2 className="text-lg font-semibold mb-2">Users</h2>
@@ -36,7 +45,7 @@ const Conversation = () => {
             }`}
           >
             {/* Sidebar user PFP */}
-            <div className="avatar online">
+            <div className={`avatar ${isUserOnline(user._id) ? "online" : "offline"}`}>
               <div className="w-12 rounded-full">
                 <img
                   src={user.profilePicture || "/avatar.png"}
