@@ -4,13 +4,14 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon backend/server.js",
-    "start": "node backend/server.js"
+    "start": "node backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "",
   "type": "module",
-  "keywords": [],
   "license": "ISC",
-  "description": "",
+  "keywords": ["chat", "realtime", "mern", "socketio", "chatting_application"],
+  "description": "Realtime chatting application with MERN stack and Socket.IO",
   "dependencies": {
     "axios": "^1.9.0",
     "bcrypt": "^5.1.1",

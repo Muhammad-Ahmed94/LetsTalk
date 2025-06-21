@@ -32,8 +32,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex-col-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-black_full bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
+    <div className="flex-center min-w-1/3 mx-auto">
+      <div className="flex-col-center w-full p-6 rounded-lg shadow-md bg-black_full bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
         <h1 className="text-3xl font-semibold text-center bg-black_light text-green_secondary rounded p-2 mb-2">
           Login To
           <span className="text-green_primary"> { }LetsTalk</span>

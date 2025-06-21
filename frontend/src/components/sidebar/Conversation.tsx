@@ -28,6 +28,10 @@ const Conversation = () => {
     return onlineUsers.includes(userId);
   };
 
+  const getProfilePicture = (user: any) => {
+    return user.profilePicture || `https://ui-avatars.com/api/?name=${user.name}&background=99FFAF&color=000&size=48`;
+  };
+  
   return (
     <div className="p-2 text-green_secondary">
       <h2 className="text-lg font-semibold mb-2">Users</h2>
@@ -48,7 +52,7 @@ const Conversation = () => {
             <div className={`avatar ${isUserOnline(user._id) ? "online" : "offline"}`}>
               <div className="w-12 rounded-full">
                 <img
-                  src={user.profilePicture || "/avatar.png"}
+                  src={getProfilePicture(user) || "/avatar.png"}
                   alt={user.name}
                   className="object-cover"
                 />
