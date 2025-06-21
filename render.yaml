@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: letstalk-app
+    env: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: UPSTASH_REDIS_URI
+        sync: false
+      - key: ACCESSTOKEN_SECRET
+        sync: false
+      - key: REFRESHTOKEN_SECRET
+        sync: false
