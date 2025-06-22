@@ -1,10 +1,10 @@
-import { Navigate, Route, Routes } from "react-router";
 import { Toaster } from 'react-hot-toast';
+import { Navigate, Route, Routes } from "react-router";
 
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/Signup";
 import useUserStore from "./stores/useUserStore";
-import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage";
 
 const App = () => {
   const { user } = useUserStore();

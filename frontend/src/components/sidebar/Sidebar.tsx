@@ -1,6 +1,6 @@
 import Conversations from './Conversations'
-import SearchInput from './SearchInput'
 import LogOutButton from './LogOutButton'
+import SearchInput from './SearchInput'
 
 
 const Sidebar = () => {

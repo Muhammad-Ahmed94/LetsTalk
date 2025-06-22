@@ -1,11 +1,9 @@
-import React from "react";
 import { BiLogOut } from "react-icons/bi";
-import useUserStore from "../../stores/useUserStore";
 import { useNavigate } from "react-router";
 
-type Props = {};
+import useUserStore from "../../stores/useUserStore";
 
-const LogOutButton = (props: Props) => {
+const LogOutButton = () => {
   const { loading, logout } = useUserStore();
   const navigate = useNavigate();
 

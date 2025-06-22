@@ -1,4 +1,5 @@
 import React from 'react'
+
 import type { FormFieldProps } from '../types/types';
 
 const Formfield:React.FC<FormFieldProps> = ({ title, type, placeholder, value, accept, onChange, className}) => {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { BsSend } from "react-icons/bs";
-import useConversationStore from "../../stores/useConversationStore";
 import toast from "react-hot-toast";
+import { BsSend } from "react-icons/bs";
+
+import useConversationStore from "../../stores/useConversationStore";
 
 const MessageInput = () => {
   const [message, setMessage] = useState("");

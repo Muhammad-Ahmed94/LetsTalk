@@ -1,7 +1,8 @@
-import { useState, type FormEvent } from "react";
-import { IoSearch } from "react-icons/io5";
-import useConversationStore from "../../stores/useConversationStore";
+import { type FormEvent,useState } from "react";
 import toast from "react-hot-toast";
+import { IoSearch } from "react-icons/io5";
+
+import useConversationStore from "../../stores/useConversationStore";
 
 const SearchInput = () => {
   const [search, setSearch] = useState("");

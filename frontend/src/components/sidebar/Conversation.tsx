@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import useConversationStore from '../../stores/useConversationStore';
+
 import { useSocketContext } from '../../context/SocketContext';
+import useConversationStore from '../../stores/useConversationStore';
 
 const Conversation = () => {
   const { 

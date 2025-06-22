@@ -1,6 +1,7 @@
-import { create } from "zustand";
-import axiosInst from "../lib/axios";
 import toast from "react-hot-toast";
+import { create } from "zustand";
+
+import axiosInst from "../lib/axios";
 import { type useConversationStoreInterface } from "../types/types";
 
 const useConversationStore = create<useConversationStoreInterface>((set, get) => ({

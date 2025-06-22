@@ -1,10 +1,9 @@
-import axios from "axios";
-import axiosInst from "../lib/axios";
 import { create } from "zustand";
 
+import axiosInst from "../lib/axios";
 import type { useUserStoreInterface } from "../types/types";
 
-const useUserStore = create<useUserStoreInterface>((set, get) => ({
+const useUserStore = create<useUserStoreInterface>((set) => ({
   user: null,
   loading: false,
   // checkingAuth: false,

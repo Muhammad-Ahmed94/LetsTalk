@@ -1,13 +1,11 @@
-import Messages from "./Messages";
-import MessageInput from "./MessageInput";
-
 import { TiMessages } from "react-icons/ti";
+
 import useConversationStore from "../../stores/useConversationStore";
 import useUserStore from "../../stores/useUserStore";
+import MessageInput from "./MessageInput";
+import Messages from "./Messages";
 
-type Props = {};
-
-const MessageContainer = (props: Props) => {
+const MessageContainer = () => {
   const { selectedConversation } = useConversationStore();
   // const { user } = useUserStore();
 

@@ -1,10 +1,9 @@
-import { useState, type FormEvent } from "react";
+import { type FormEvent,useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router";
 
-import useUserStore from "../stores/useUserStore";
-
 import Formfield from "../components/Formfield";
-import toast from "react-hot-toast";
+import useUserStore from "../stores/useUserStore";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
