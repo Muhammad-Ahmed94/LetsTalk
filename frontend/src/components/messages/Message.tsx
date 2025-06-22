@@ -16,15 +16,29 @@ const Message = ({ message }: { message: any }) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
+  console.log("Message data:", { 
+    messageId: message._id, 
+    senderId: message.senderId, 
+    currentUserId: user?._id, 
+    isFromMe,
+    receiverId: message.receiverId,
+    selectedConversationId: selectedConversation?._id
+  });
+  
   return (
-    <div className={`chat ${isFromMe ? "chat-end" : "chat-start"}`}>
+    <div className={`chat mb-4 ${isFromMe ? "chat-end" : "chat-start"}`}>
       <div className="chat-image avatar">
-        <div className="w-10 rounded-full">
-          <img src={profilePicture || "/avatar.png"} alt="Profile_Pic" />
+        <div className="w-10 rounded-full overflow-hidden">
+          <img src={profilePicture || "/avatar.png"} alt="Profile_Pic" className="w-full h-full object-cover" />
         </div>
       </div>
 
-      <div className={`chat-bubble text-white font-semibold bg-green_primary `}>{message.message}</div>
+      <div className={`chat-bubble text-white font-semibold bg-green_primary ${
+        isFromMe 
+          ? 'bg-green_primary' 
+          : 'bg-gray-600'
+      }`}>{message.message}</div>
+      {/* CHAT FOOTER */}
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
         {timeStamp(message.createdAt)}
       </div>
