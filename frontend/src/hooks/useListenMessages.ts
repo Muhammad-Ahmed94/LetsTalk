@@ -16,8 +16,6 @@ const useListenMessages = () => {
             //TODO notification sound
             // newAudio object
             // sound.play()
-
-            
         }
         socket?.on("newMessage", handleNewMessage);
 

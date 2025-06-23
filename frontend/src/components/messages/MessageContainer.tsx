@@ -7,24 +7,30 @@ import Messages from "./Messages";
 
 const MessageContainer = () => {
   const { selectedConversation } = useConversationStore();
-  // const { user } = useUserStore();
 
   return (
-    <div className="md:min-w-[450px] overflow-auto">
-      {!selectedConversation ? (
+    <div className="md:min-w-[450px] flex flex-col h-full bg-black_light">
+      {!selectedConversation?.name ? (
         <NoChatSelected />
       ) : (
         <>
-          {/* Header */}
-          <div className="bg-black_full px-4 py-2 mb-2 capitalize">
+          {/* Sticky Header */}
+          <div className="bg-black_full px-4 py-2 capitalize sticky top-0 z-10">
             <span className="label-text">To: </span>
             <span className="text-black_ligth">
-              {selectedConversation.name}
+              {selectedConversation?.name || "No chat one selected"}
             </span>
           </div>
 
-          <Messages />
-          <MessageInput />
+          {/* Scrollable messages */}
+          <div className="flex-1 overflow-y-auto">
+            <Messages />
+          </div>
+
+          {/* Input always at bottom */}
+          <div className="border-t">
+            <MessageInput />
+          </div>
         </>
       )}
     </div>

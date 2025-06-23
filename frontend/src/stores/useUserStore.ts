@@ -19,7 +19,6 @@ const useUserStore = create<useUserStoreInterface>((set) => ({
         gender,
       });
       set({ user: res.data.user, loading: false });
-      console.log(res.data);
     } catch (error: any) {
       set({ loading: false });
       console.error("Error occured while signing up", error.message);
@@ -33,7 +32,6 @@ const useUserStore = create<useUserStoreInterface>((set) => ({
     try {
       const res = await axiosInst.post("/auth/login", { email, password });
       set({ user: res.data.user, loading: false });
-      console.log("user is:", res.data.user.name);
     } catch (error: any) {
       set({ loading: false });
       console.error("Error occured while logging in", error.message);
