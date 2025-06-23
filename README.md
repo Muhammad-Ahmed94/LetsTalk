@@ -1,202 +1,54 @@
-# Lets'Talk -- Web chatting application
-## Socket.io, Web RTC, mongoDB, auth, React, Typescript, Express, MERN
-### In Progress
+# React + TypeScript + Vite
 
-# LetsTalk - Real-time Chat Application
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-A modern real-time chat application built with the MERN stack and Socket.IO.
+Currently, two official plugins are available:
 
-## 🚀 Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- Real-time messaging with Socket.IO
-- User authentication with JWT
-- Online/offline status indicators
-- Responsive design for mobile and desktop
-- Profile pictures with fallback system
-- Message timestamps
-- User search functionality
+## Expanding the ESLint configuration
 
-## 🛠️ Tech Stack
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-**Frontend:**
-- React 19 with TypeScript
-- Tailwind CSS + DaisyUI
-- Socket.IO Client
-- Zustand for state management
-- React Router for navigation
-
-**Backend:**
-- Node.js with Express
-- MongoDB with Mongoose
-- Socket.IO for real-time communication
-- Redis for session management
-- JWT for authentication
-- bcrypt for password hashing
-
-## 🌐 Live Demo
-
-[Your deployed app URL will be here]
-
-## 📋 Prerequisites
-
-Before deployment, ensure you have:
-
-1. **MongoDB Database** (MongoDB Atlas recommended)
-2. **Redis Database** (Upstash recommended for free tier)
-3. **Render Account** (for deployment)
-
-## 🚀 Deployment Steps
-
-### 1. Setup Database Services
-
-**MongoDB Atlas:**
-1. Create account at [MongoDB Atlas](https://cloud.mongodb.com/)
-2. Create a new cluster
-3. Get connection string
-4. Replace `<username>`, `<password>`, and `<cluster-url>`
-
-**Upstash Redis:**
-1. Create account at [Upstash](https://upstash.com/)
-2. Create a Redis database
-3. Get Redis URL
-
-### 2. Deploy to Render
-
-1. **Connect Repository:**
-   - Go to [Render Dashboard](https://dashboard.render.com/)
-   - Click "New +" → "Web Service"
-   - Connect your GitHub repository
-
-2. **Configure Service:**
-   - **Name:** `letstalk-app`
-   - **Environment:** `Node`
-   - **Build Command:** `npm run build`
-   - **Start Command:** `npm start`
-   - **Plan:** Free (or paid for better performance)
-
-3. **Set Environment Variables:**
-   ```bash
-   NODE_ENV=production
-   MONGODB_URI=your_mongodb_connection_string
-   UPSTASH_REDIS_URI=your_redis_connection_string
-   ACCESSTOKEN_SECRET=your_super_secret_access_token_here
-   REFRESHTOKEN_SECRET=your_super_secret_refresh_token_here
-   ```
-
-4. **Deploy:**
-   - Click "Create Web Service"
-   - Wait for build and deployment to complete
-
-### 3. Generate JWT Secrets
-
-Use these commands to generate secure secrets:
-
-```bash
-# For Access Token Secret
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-
-# For Refresh Token Secret  
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## 🔧 Local Development
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-1. **Clone the repository:**
-   ```bash
-   git clone your-repo-url
-   cd letstalk
-   ```
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   cd frontend && npm install
-   ```
-
-3. **Set up environment variables:**
-   ```bash
-   cp .env.example .env
-   # Fill in your environment variables
-   ```
-
-4. **Start development servers:**
-   ```bash
-   # Backend (from root)
-   npm run dev
-
-   # Frontend (in new terminal)
-   cd frontend && npm run dev
-   ```
-
-## 📁 Project Structure
-
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
 ```
-letstalk/
-├── backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── lib/
-│   └── socket/
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── stores/
-│   │   ├── hooks/
-│   │   ├── context/
-│   │   └── types/
-│   └── dist/ (after build)
-├── package.json
-├── render.yaml
-└── README.md
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues:
-
-1. **Build Fails:**
-   - Check if all dependencies are installed
-   - Verify Node.js version (>=18.0.0)
-   - Check build logs for specific errors
-
-2. **Socket Connection Issues:**
-   - Verify CORS configuration
-   - Check if WebSocket is supported
-   - Ensure proper URL configuration
-
-3. **Database Connection:**
-   - Verify MongoDB connection string
-   - Check IP whitelist in MongoDB Atlas
-   - Ensure Redis URL is correct
-
-### Logs:
-
-- Check Render logs in dashboard
-- Use browser dev tools for frontend errors
-- Monitor server logs for backend issues
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the ISC License.
-
-## 🙏 Acknowledgments
-
-- Socket.IO for real-time communication
-- MongoDB for database
-- Render for hosting
-- All open-source contributors
-
----
-
-Made with ❤️ by [Your Name]
