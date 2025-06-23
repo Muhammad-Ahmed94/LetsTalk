@@ -19,10 +19,12 @@ const __dirname = path.resolve();
 
 // Cors options
 const corsOptions = {
-  origin:
-    process.env.NODE_ENV === "production"
-      ? process.env.FRONTEND_URL || true
-      : "http://localhost:5173",
+  origin: [
+    "http://localhost:5173", // Local development
+    "http://localhost:3000", // Alternative local
+    process.env.FRONTEND_URL, // Production frontend URL
+    "https://letstalk-frontend.onrender.com", // Render static site
+  ].filter(Boolean),
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
@@ -90,6 +92,7 @@ app.use((error, req, res, next) => {
 
 server.listen(PORT, () => {
   console.log(`Server running on port:${PORT}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`CORS enabled for: ${corsOptions.origin}`);
   connectDB();
 });

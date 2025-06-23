@@ -1,19 +1,23 @@
 services:
   - type: web
-    name: letstalk-app
+    name: letstalk-backend
     env: node
     plan: free
-    buildCommand: npm run build
+    buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 5000
       - key: MONGODB_URI
-        sync: false
+        value: mongodb+srv://muneebbum757:Ms6CnVSQdAhm886P@cluster0.zh8qt0e.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       - key: UPSTASH_REDIS_URI
-        sync: false
+        value: rediss://default:AUS2AAIjcDFjMDk1YTcxZmU1YzA0MWY5ODkwYjRkOWYzMjQzMTJmOXAxMA@capital-penguin-17590.upstash.io:6379
       - key: ACCESSTOKEN_SECRET
-        sync: false
+        value: test_access_token_secret
       - key: REFRESHTOKEN_SECRET
-        sync: false
+        value: test_refresh_token_secret
+      - key: FRONTEND_URL
+        value: https://letstalk-frontend.onrender.com
