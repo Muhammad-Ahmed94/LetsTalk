@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast';
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
@@ -14,7 +14,6 @@ const App = () => {
         <Routes>
           <Route path="/" element={user ? <HomePage /> : <Navigate to="/login" />} />
 
-          {/* <Route path="/login" element={user ? <Login /> : <Navigate to="/" />} /> */}
           <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
 
           <Route path="/signup" element={!user ? <SignupPage/> : <Navigate to="/" />}/>
