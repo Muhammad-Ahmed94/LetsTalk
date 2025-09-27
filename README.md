@@ -1,7 +1,9 @@
 # LetsTalk -- Web chatting application
 ### Socket.io, Web RTC, mongoDB, auth, React, Typescript, Express, MERN
 
-![letstalk-gitimage](https://github.com/user-attachments/assets/bbb23948-5d89-49e2-a9bd-db769aa0eb62)
+CLICK THE IMAGE BELOW TO PLAY THE DEMO VIDEO
+[![letstalk-gitimage](https://github.com/user-attachments/assets/bbb23948-5d89-49e2-a9bd-db769aa0eb62)](https://www.youtube.com/watch?v=l3lQUhj-btc "Click to play demo")
+
 
 # LetsTalk - Real-time Chat Application
 
